@@ -1,7 +1,6 @@
-"use client"  
+"use client";
 import React from "react";
 import LoginForm from "../Core/Components/LoginForm";
-
 
 export default function LoginPage() {
   return (
