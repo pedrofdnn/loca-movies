@@ -1,27 +1,30 @@
-import { useState } from "react";
-import { useEmails } from "./UseMails";
+import React, { useState } from "react";
+import { useEmail } from "./UseMails";
 import useValidationField from "./ValidationFields";
 
 export const ButtonStatus = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [remetente, setRemetente] = useState("");
+  const [destinatario, setDestinatario] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const { sendEmail, loading, error, success } = useEmail();
   const { errors, validate } = useValidationField();
-  const { login, loading, error, success } = useEmails();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const isValid = validate({
-      email,
-      password,
+      remetente,
+      destinatario,
+      mensagem,
     });
 
     if (!isValid) return;
 
-    await login({ email, password });
+    await sendEmail({ remetente, destinatario, mensagem });
 
-    setEmail("");
-    setPassword("");
+    setRemetente("");
+    setDestinatario("");
+    setMensagem("");
   };
 
   const getButtonProps = () => {
@@ -53,10 +56,12 @@ export const ButtonStatus = () => {
   };
 
   return {
-    email,
-    password,
-    setEmail,
-    setPassword,
+    remetente,
+    destinatario,
+    mensagem,
+    setRemetente,
+    setDestinatario,
+    setMensagem,
     handleSubmit,
     getButtonProps,
     errors,
