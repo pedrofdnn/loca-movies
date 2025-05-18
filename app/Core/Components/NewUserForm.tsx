@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
@@ -8,13 +9,13 @@ import {
   InputAdornment,
   InputLabel,
   Stack,
+  TextField,
 } from "@mui/material";
-import LoginIcon from "@mui/icons-material/Login";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import React, { useState } from "react";
 import Link from "next/link";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 
-export default function LoginForm() {
+export default function NewUserForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   // Função para mostrar ou esconder a senha
@@ -31,15 +32,21 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="container-login-form flex flex-col items-center">
+    <div className="container-create-form flex flex-col items-center">
       <form className="form-login flex flex-col items-center " action="">
+        <TextField
+          sx={{ m: 1, width: "35ch" }}
+          id="filled-basic"
+          label="Nome Completo"
+          variant="filled"
+        />
 
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
+        <FormControl sx={{ m: 1, width: "35ch" }} variant="filled">
           <InputLabel htmlFor="filled-adornment-username">Usuario</InputLabel>
           <FilledInput id="filled-adornment-username" type="text" />
         </FormControl>
 
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
+        <FormControl sx={{ m: 1, width: "35ch" }} variant="filled">
           <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
           <FilledInput
             id="filled-adornment-password"
@@ -62,23 +69,17 @@ export default function LoginForm() {
           />
         </FormControl>
 
-        <Stack direction="row" spacing={2} m={2}>
-          <Button variant="contained" endIcon={<LoginIcon />}>
-            Efetuar Login
+        <Stack direction="column" spacing={1} m={2}>
+          <Button variant="contained" endIcon={<BorderColorIcon />}>
+            Efetuar Cadastro
           </Button>
         </Stack>
 
         <Stack direction="row" spacing={2}>
-          <Button variant="contained" endIcon={<PersonAddIcon />}>
-            <Link href="/CreateUser">Criar Conta</Link>
+          <Button variant="contained" endIcon={<SettingsBackupRestoreIcon />}>
+            <Link href="/LoginPage">Voltar ao Inicio</Link>
           </Button>
         </Stack>
-
-        {/* <Stack direction="row" spacing={2}>
-          <Button loading variant="outlined" loadingPosition="end">
-            Submit
-          </Button>
-        </Stack> */}
       </form>
     </div>
   );
