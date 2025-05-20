@@ -20,6 +20,7 @@ import {
   CheckCircle as CheckCircleIcon,
   Error as ErrorIcon,
 } from "@mui/icons-material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function NewUserForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -110,10 +111,11 @@ export default function NewUserForm() {
             {...getButtonProps()}
             type="submit"
             fullWidth
-            variant="contained"
+            // variant="contained"
+            variant={success || error ? "contained" : "outlined"}
             endIcon={
               loading ? (
-                <BorderColorIcon />
+                <CircularProgress size={20} color="inherit" />
               ) : success ? (
                 <CheckCircleIcon />
               ) : error ? (
@@ -133,6 +135,12 @@ export default function NewUserForm() {
               : "Efetuar Cadastro"}
           </Button>
         </Stack>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {success && (
+          <p style={{ color: "green" }}>
+            Cadastrado com sucesso! <br /> Você sera Redirecionado!
+          </p>
+        )}
 
         <Stack direction="row" spacing={2}>
           <Button variant="contained" endIcon={<SettingsBackupRestoreIcon />}>
