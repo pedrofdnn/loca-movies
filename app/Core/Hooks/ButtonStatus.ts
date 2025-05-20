@@ -1,30 +1,33 @@
 import React, { useState } from "react";
-import { useEmail } from "./UseMails";
+import { useUserStorage } from "./useUserStorage";
 import useValidationField from "./ValidationFields";
 
 export const ButtonStatus = () => {
-  const [remetente, setRemetente] = useState("");
-  const [destinatario, setDestinatario] = useState("");
-  const [mensagem, setMensagem] = useState("");
-  const { sendEmail, loading, error, success } = useEmail();
+  const [nomeCompleto, setNomeCompleto] = useState("");
+  const [usuario, setUsuario] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const { saveUser, loading, error, success } = useUserStorage();
   const { errors, validate } = useValidationField();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const isValid = validate({
-      remetente,
-      destinatario,
-      mensagem,
+      nomeCompleto,
+      usuario,
+      senha,
     });
-
+    
     if (!isValid) return;
 
-    await sendEmail({ remetente, destinatario, mensagem });
+    await saveUser({ nomeCompleto, usuario, senha });
 
-    setRemetente("");
-    setDestinatario("");
-    setMensagem("");
+    if (success) {
+      setNomeCompleto("");
+      setUsuario("");
+      setSenha("");
+    }
   };
 
   const getButtonProps = () => {
@@ -38,30 +41,30 @@ export const ButtonStatus = () => {
     } else if (success) {
       return {
         color: "success" as const,
-        children: "Enviado com sucesso!",
+        children: "Cadastro realizado com sucesso!",
         variant: "contained",
       };
     } else if (error) {
       return {
         color: "error" as const,
-        children: "Erro ao enviar",
+        children: "Erro ao cadastrar",
         variant: "contained",
       };
     }
     return {
       color: "primary" as const,
-      children: "Enviar",
+      children: "Cadastrar",
       variant: "contained",
     };
   };
 
   return {
-    remetente,
-    destinatario,
-    mensagem,
-    setRemetente,
-    setDestinatario,
-    setMensagem,
+    nomeCompleto,
+    usuario,
+    senha,
+    setNomeCompleto,
+    setUsuario,
+    setSenha,
     handleSubmit,
     getButtonProps,
     errors,
