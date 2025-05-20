@@ -13,7 +13,7 @@ function validateFields(fields: { [key: string]: string }): {
   for (const [key, value] of Object.entries(fields)) {
     if (!value.trim()) {
       errors[key] = "Este campo é obrigatório.";
-    } else if (key === "destinatario" && !isValidEmail(value)) {
+    } else if (key === "usuario" && !isValidEmail(value)) {
       errors[key] = "Digite um e-mail válido.";
     }
   }

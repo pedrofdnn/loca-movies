@@ -18,7 +18,7 @@ export const ButtonStatus = () => {
       usuario,
       senha,
     });
-    
+
     if (!isValid) return;
 
     await saveUser({ nomeCompleto, usuario, senha });
@@ -35,7 +35,8 @@ export const ButtonStatus = () => {
       return {
         color: "primary" as const,
         disabled: true,
-        loading,
+        loading: true,
+        // children: setTimeout(() => "Carregando...", 1000),
         variant: "outlined",
       };
     } else if (success) {

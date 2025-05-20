@@ -26,6 +26,7 @@ export const useUserStorage = () => {
       const existe = usuarios.some((u) => u.usuario === userData.usuario);
       if (existe) {
         setError("Usuário já existe.");
+        alert("Usuário já existe.");
         setLoading(false);
         return;
       }

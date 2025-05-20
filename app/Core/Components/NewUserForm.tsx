@@ -1,21 +1,10 @@
 "use client";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  Button,
-  FilledInput,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import Link from "next/link";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
-import { useUserStorage } from "../Hooks/useUserStorage";
-import useValidationField from "../Hooks/ValidationFields";
 import { ButtonStatus } from "../Hooks/ButtonStatus";
 
 import {
@@ -57,7 +46,8 @@ export default function NewUserForm() {
 
   return (
     <div className="container-create-form flex flex-col items-center">
-      <form
+      <Box
+        component="form"
         className="form-login flex flex-col items-center "
         onSubmit={handleSubmit}
       >
@@ -126,7 +116,7 @@ export default function NewUserForm() {
             <Link href="/LoginPage">Voltar ao Inicio</Link>
           </Button>
         </Stack>
-      </form>
+      </Box>
     </div>
   );
 }
