@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useUserStorage } from "./useUserStorage";
+import { useUserStorage } from "./UserStorage";
 import useValidationField from "./ValidationFields";
 
 export const ButtonStatus = () => {
@@ -36,7 +36,6 @@ export const ButtonStatus = () => {
         color: "primary" as const,
         disabled: true,
         loading: true,
-        // children: setTimeout(() => "Carregando...", 1000),
         variant: "outlined",
       };
     } else if (success) {

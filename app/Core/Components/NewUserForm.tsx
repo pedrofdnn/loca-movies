@@ -1,14 +1,22 @@
 "use client";
 import { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, Stack, TextField } from "@mui/material";
-import Link from "next/link";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 import { ButtonStatus } from "../Hooks/ButtonStatus";
-
+import Link from "next/link";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 import {
-  Send as SendIcon,
+  Box,
+  Button,
+  FilledInput,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  Stack,
+  TextField,
+} from "@mui/material";
+import {
+  BorderColor as BorderColorIcon,
   CheckCircle as CheckCircleIcon,
   Error as ErrorIcon,
 } from "@mui/icons-material";
@@ -51,7 +59,9 @@ export default function NewUserForm() {
         className="form-login flex flex-col items-center "
         onSubmit={handleSubmit}
       >
+        <h1 className="text-2xl font-bold">Cadastro de Usuário</h1>
         <TextField
+          sx={{ m: 1, width: "35ch" }}
           value={nomeCompleto}
           onChange={(e) => setNomeCompleto(e.target.value)}
           error={Boolean(errors.nomeCompleto)}
@@ -62,6 +72,7 @@ export default function NewUserForm() {
         />
 
         <TextField
+          sx={{ m: 1, width: "35ch" }}
           value={usuario}
           onChange={(e) => setUsuario(e.target.value)}
           error={Boolean(errors.usuario)}
@@ -71,16 +82,28 @@ export default function NewUserForm() {
           fullWidth
         />
 
-        <TextField
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          error={Boolean(errors.senha)}
-          helperText={errors.senha}
-          label="Senha"
-          variant="filled"
-          type="password"
-          fullWidth
-        />
+        <FormControl sx={{ m: 1, width: "35ch" }} variant="filled">
+          <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
+          <FilledInput
+            id="filled-adornment-password"
+            type={showPassword ? "text" : "password"}
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  onMouseUp={handleMouseUpPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
 
         <Stack direction="column" spacing={1} m={2}>
           <Button
@@ -90,13 +113,13 @@ export default function NewUserForm() {
             variant="contained"
             endIcon={
               loading ? (
-                <SendIcon />
+                <BorderColorIcon />
               ) : success ? (
                 <CheckCircleIcon />
               ) : error ? (
                 <ErrorIcon />
               ) : (
-                <SendIcon />
+                <BorderColorIcon />
               )
             }
             disabled={loading || success}
