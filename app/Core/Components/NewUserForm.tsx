@@ -15,12 +15,9 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import {
-  BorderColor as BorderColorIcon,
-  CheckCircle as CheckCircleIcon,
-  Error as ErrorIcon,
-} from "@mui/icons-material";
-import CircularProgress from "@mui/material/CircularProgress";
+
+
+import SubmitButton from "./SubmitButton";
 
 export default function NewUserForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -106,34 +103,15 @@ export default function NewUserForm() {
           />
         </FormControl>
 
-        <Stack direction="column" spacing={1} m={2}>
-          <Button
-            {...getButtonProps()}
-            type="submit"
-            fullWidth
-            loading={loading}
-            loadingPosition="end"
-            variant={success || error ? "contained" : "contained"}
-            endIcon={
-              success ? (
-                <CheckCircleIcon />
-              ) : error ? (
-                <ErrorIcon />
-              ) : (
-                <BorderColorIcon />
-              )
-            }
-            disabled={loading || success}
-          >
-            {loading
-              ? "Cadastrando..."
-              : success
-              ? "Cadastrado com Sucesso!"
-              : error
-              ? "Erro ao Cadastrar"
-              : "Efetuar Cadastro"}
-          </Button>
-        </Stack>
+        <SubmitButton
+          loading={loading}
+          success={success}
+          error={Boolean(error)}
+          loadingLabel="Cadastrando"
+          defaultLabel="Efetuar Cadastro"
+          successLabel="Cadastrado com Sucesso!"
+          errorLabel="Erro ao Cadastrar"
+        />
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && (
           <p style={{ color: "green" }}>
