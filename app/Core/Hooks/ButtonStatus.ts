@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useUserStorage } from "./UserStorage";
 import useValidationField from "./ValidationFields";
 
+
 export const ButtonStatus = () => {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [usuario, setUsuario] = useState("");
@@ -37,23 +38,24 @@ export const ButtonStatus = () => {
         disabled: true,
         loading: true,
         variant: "outlined",
+        children: "Cadastrando...",
       };
     } else if (success) {
       return {
         color: "success" as const,
-        children: "Cadastro realizado com sucesso!",
+        children: "Cadastrado com sucesso!",
         variant: "contained",
       };
     } else if (error) {
       return {
         color: "error" as const,
-        children: "Erro ao cadastrar",
+        children: "Usuario já existe",
         variant: "contained",
       };
     }
     return {
       color: "primary" as const,
-      children: "Cadastrar",
+      children: " Efetuar o Cadastrar",
       variant: "contained",
     };
   };

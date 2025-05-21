@@ -9,12 +9,11 @@ interface SubmitButtonProps {
   loading: boolean;
   success: boolean;
   error: boolean;
-  loadingLabel?: string;
-  defaultLabel: string;
-  successLabel?: string;
-  errorLabel?: string;
   type?: "submit" | "button";
   fullWidth?: boolean;
+  color?: "primary" | "secondary" | "error" | "success";
+  variant?: "text" | "outlined" | "contained";
+  children?: React.ReactNode;
 }
 
 export default function SubmitButton(props: SubmitButtonProps) {
@@ -22,10 +21,9 @@ export default function SubmitButton(props: SubmitButtonProps) {
     loading,
     success,
     error,
-    defaultLabel,
-    loadingLabel = "Carregando",
-    successLabel = "Sucesso!",
-    errorLabel = "Erro!",
+    color = "primary",
+    variant = "contained",
+    children,
   } = props;
 
   return (
@@ -35,7 +33,8 @@ export default function SubmitButton(props: SubmitButtonProps) {
         fullWidth
         loading={loading}
         loadingPosition="end"
-        variant={success || error ? "contained" : "contained"}
+        color={color}
+        variant={variant}
         endIcon={
           success ? (
             <CheckCircleIcon />
@@ -47,13 +46,14 @@ export default function SubmitButton(props: SubmitButtonProps) {
         }
         disabled={loading || success}
       >
-        {loading
-          ? `${loadingLabel}...`
-          : success
-          ? successLabel
-          : error
-          ? errorLabel
-          : defaultLabel}
+        {children ||
+          (loading
+            ? children
+            : success
+            ? children
+            : error
+            ? children
+            : children)}
       </Button>
     </Stack>
   );

@@ -15,8 +15,6 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-
-
 import SubmitButton from "./SubmitButton";
 
 export default function NewUserForm() {
@@ -104,20 +102,15 @@ export default function NewUserForm() {
         </FormControl>
 
         <SubmitButton
+          {...getButtonProps()}
           loading={loading}
           success={success}
           error={Boolean(error)}
-          loadingLabel="Cadastrando"
-          defaultLabel="Efetuar Cadastro"
-          successLabel="Cadastrado com Sucesso!"
-          errorLabel="Erro ao Cadastrar"
+          type="submit"
+          fullWidth
+          variant="contained"
         />
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {success && (
-          <p style={{ color: "green" }}>
-            Cadastrado com sucesso! <br /> Você sera Redirecionado!
-          </p>
-        )}
+        {success && <p style={{ color: "green" }}>Você sera Redirecionado!</p>}
 
         <Stack direction="row" spacing={2}>
           <Button variant="contained" endIcon={<SettingsBackupRestoreIcon />}>

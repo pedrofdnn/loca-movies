@@ -24,8 +24,12 @@ export const useUserStorage = () => {
 
     try {
       setLoading(true);
+      setError(null);
+
       const usuariosString = localStorage.getItem(USUARIOS_STORAGE_KEY);
       const usuarios: User[] = usuariosString ? JSON.parse(usuariosString) : [];
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const existe = usuarios.some((u) => u.usuario === userData.usuario);
       if (existe) {
