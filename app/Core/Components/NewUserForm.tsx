@@ -111,12 +111,11 @@ export default function NewUserForm() {
             {...getButtonProps()}
             type="submit"
             fullWidth
-            // variant="contained"
-            variant={success || error ? "contained" : "outlined"}
+            loading={loading}
+            loadingPosition="end"
+            variant={success || error ? "contained" : "contained"}
             endIcon={
-              loading ? (
-                <CircularProgress size={20} color="inherit" />
-              ) : success ? (
+              success ? (
                 <CheckCircleIcon />
               ) : error ? (
                 <ErrorIcon />
@@ -127,7 +126,7 @@ export default function NewUserForm() {
             disabled={loading || success}
           >
             {loading
-              ? "Cadastrando.."
+              ? "Cadastrando..."
               : success
               ? "Cadastrado com Sucesso!"
               : error

@@ -1,6 +1,7 @@
 "use client";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
+  Box,
   Button,
   FilledInput,
   FormControl,
@@ -8,14 +9,28 @@ import {
   InputAdornment,
   InputLabel,
   Stack,
+  TextField,
 } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import React, { useState } from "react";
 import Link from "next/link";
+import { ButtonStatus } from "../Hooks/ButtonStatus";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const {
+    usuario,
+    senha,
+    setUsuario,
+    setSenha,
+    handleSubmit,
+    getButtonProps,
+    errors,
+    success,
+    error,
+    loading,
+  } = ButtonStatus();
 
   // Função para mostrar ou esconder a senha
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -32,24 +47,33 @@ export default function LoginForm() {
 
   return (
     <div className="container-login-form flex flex-col items-center">
-      <form className="form-login flex flex-col items-center " action="">
+      <Box
+        component="form"
+        className="form-login flex flex-col items-center "
+        action=""
+      >
+        <TextField
+          sx={{ m: 1, width: "32ch" }}
+          value={usuario}
+          onChange={(e) => setUsuario(e.target.value)}
+          error={Boolean(errors.usuario)}
+          helperText={errors.usuario}
+          label="Usuário"
+          variant="filled"
+          fullWidth
+        />
 
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
-          <InputLabel htmlFor="filled-adornment-username">Usuario</InputLabel>
-          <FilledInput id="filled-adornment-username" type="text" />
-        </FormControl>
-
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
+        <FormControl sx={{ m: 1, width: "35ch" }} variant="filled">
           <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
           <FilledInput
             id="filled-adornment-password"
             type={showPassword ? "text" : "password"}
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  aria-label={
-                    showPassword ? "hide the password" : "display the password"
-                  }
+                  aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                   onMouseUp={handleMouseUpPassword}
@@ -73,13 +97,7 @@ export default function LoginForm() {
             <Link href="/CreateUser">Criar Conta</Link>
           </Button>
         </Stack>
-
-        {/* <Stack direction="row" spacing={2}>
-          <Button loading variant="outlined" loadingPosition="end">
-            Submit
-          </Button>
-        </Stack> */}
-      </form>
+      </Box>
     </div>
   );
 }

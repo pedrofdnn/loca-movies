@@ -37,19 +37,40 @@ export const useUserStorage = () => {
       usuarios.push(userData);
       localStorage.setItem(USUARIOS_STORAGE_KEY, JSON.stringify(usuarios));
 
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      setSuccess(true);
+      setLoading(false);
+
       setTimeout(() => {
-        setError(null);
-        setSuccess(true);
-        setLoading(false);
-        setTimeout(() => {
-          router.push("/LoginPage");
-        }, 3000);
-      }, 2000);
+        router.push("/LoginPage");
+      }, 3000);
     } catch (err) {
       setError("Erro ao salvar usuário.");
       setLoading(false);
     }
   };
 
-  return { saveUser, loading, error, success };
+  const loginUser = (usuario: string, senha: string) => {
+    const usuariosString = localStorage.getItem(USUARIOS_STORAGE_KEY);
+    const usuarios: User[] = usuariosString ? JSON.parse(usuariosString) : [];
+
+    const usuarioEncontrado = usuarios.find(
+      (u) => u.usuario === usuario && u.senha === senha
+    );
+
+    if (usuarioEncontrado) {
+      setSuccess(true);
+      setError(null);
+      setLoading(false);
+      setTimeout(() => {
+        router.push("/HomePage");
+      }, 2000);
+    } else {
+      setError("Usuário ou senha incorretos.");
+      setLoading(false);
+    }
+  };
+
+  return { saveUser, loginUser, loading, error, success };
 };
