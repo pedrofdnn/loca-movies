@@ -1,10 +1,10 @@
 "use client";
-import { ButtonStatus } from "../Hooks/ButtonStatus";
+import { ButtonStatus } from "../Hooks/CreateStatus";
 import Link from "next/link";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import SubmitButton from "./SubmitButton";
-import PasswordInput from "./PasswordInput";
+import PasswordInput from "./PasswInput";
 
 export default function NewUserForm() {
   const {

@@ -55,26 +55,38 @@ export const useUserStorage = () => {
     }
   };
 
-  const loginUser = (usuario: string, senha: string) => {
-    const usuariosString = localStorage.getItem(USUARIOS_STORAGE_KEY);
-    const usuarios: User[] = usuariosString ? JSON.parse(usuariosString) : [];
+  const loginUser = async (usuario: string, senha: string) => {
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
 
-    const usuarioEncontrado = usuarios.find(
-      (u) => u.usuario === usuario && u.senha === senha
-    );
+    try {
+      const usuariosString = localStorage.getItem(USUARIOS_STORAGE_KEY);
+      const usuarios: User[] = usuariosString ? JSON.parse(usuariosString) : [];
 
-    if (usuarioEncontrado) {
-      setSuccess(true);
-      setError(null);
-      setLoading(false);
-      setTimeout(() => {
-        router.push("/HomePage");
-      }, 2000);
-    } else {
-      setError("Usuário ou senha incorretos.");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const usuarioEncontrado = usuarios.find(
+        (u) => u.usuario === usuario && u.senha === senha
+      );
+
+      if (usuarioEncontrado) {
+        setSuccess(true);
+        setError(null);
+        setLoading(false);
+
+        setTimeout(() => {
+          router.push("/HomePage");
+        }, 2000);
+      } else {
+        setError("Usuário ou senha incorretos.");
+        setLoading(false);
+      }
+    } catch (err) {
+      setError("Erro ao realizar login.");
       setLoading(false);
     }
-  };
+  }
 
   return { saveUser, loginUser, loading, error, success };
 };
