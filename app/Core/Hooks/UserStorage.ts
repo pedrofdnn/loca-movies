@@ -16,6 +16,7 @@ export const useUserStorage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [nomeCompletoLogado, setNomeCompletoLogado] = useState<string | null>(null);
 
   const saveUser = async (userData: User) => {
     setLoading(true);
@@ -61,6 +62,8 @@ export const useUserStorage = () => {
     setSuccess(false);
 
     try {
+      setLoading(true);
+      setError(null);
       const usuariosString = localStorage.getItem(USUARIOS_STORAGE_KEY);
       const usuarios: User[] = usuariosString ? JSON.parse(usuariosString) : [];
 
@@ -75,6 +78,9 @@ export const useUserStorage = () => {
         setError(null);
         setLoading(false);
 
+        const nomeCompleto = usuarioEncontrado.nomeCompleto ?? usuarioEncontrado.usuario ?? null;
+        setNomeCompletoLogado(nomeCompleto);
+
         setTimeout(() => {
           router.push("/HomePage");
         }, 2000);
@@ -88,5 +94,5 @@ export const useUserStorage = () => {
     }
   }
 
-  return { saveUser, loginUser, loading, error, success };
+  return { saveUser, loginUser, loading, error, success, nomeCompletoLogado };
 };

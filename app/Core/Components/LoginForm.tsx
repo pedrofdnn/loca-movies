@@ -25,6 +25,7 @@ export default function LoginForm() {
     setSenha,
     handleSubmit,
     getButtonProps,
+    nomeCompletoLogado,
     error,
     success,
     loading,
@@ -60,12 +61,17 @@ export default function LoginForm() {
           {...getButtonProps()}
           loading={loading}
           success={success}
-          error={!!error}
+          error={Boolean(error)}
           type="submit"
+          fullWidth
           variant="contained"
-        >
-          Efetuar Login
-        </SubmitButton>
+        />
+        {success && nomeCompletoLogado && (
+          <p style={{ color: "green" }}>
+            <h2>Seja bem-vindo,</h2>
+            {nomeCompletoLogado.split(" ")[0]}!
+          </p>
+        )}
 
         <Stack direction="row" spacing={2}>
           <Button variant="contained" endIcon={<PersonAddIcon />}>

@@ -5,7 +5,7 @@ export const LoginStatus = () => {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
 
-  const { loginUser, loading, error, success } = useUserStorage();
+  const { loginUser, loading, error, success, nomeCompletoLogado } = useUserStorage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +44,7 @@ export const LoginStatus = () => {
   return {
     usuario,
     senha,
+    nomeCompletoLogado,
     setUsuario,
     setSenha,
     handleSubmit,
