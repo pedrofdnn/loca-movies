@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useUserStorage } from "./UserStorage";
-import useValidationField from "./ValidationFields";
+import { useUserStorage } from "./useUserStorage";
+import useValidationField from "./useValidationFields";
 
 
 export const ButtonStatus = () => {

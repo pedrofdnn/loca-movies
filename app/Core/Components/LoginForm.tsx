@@ -15,7 +15,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import React, { useState } from "react";
 import SubmitButton from "./SubmitButton";
 import PasswordInput from "./PasswInput";
-import { LoginStatus } from "../Hooks/LoginStatus";
+import { LoginStatus } from "../Hooks/useLoginStatus";
 
 export default function LoginForm() {
   const {

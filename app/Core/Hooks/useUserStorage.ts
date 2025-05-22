@@ -94,5 +94,10 @@ export const useUserStorage = () => {
     }
   }
 
+  const isUserLoggedIn = (): boolean => {
+    const usuarioLogado = localStorage.getItem("usuarioLogado");
+    return !!usuarioLogado;
+  };
+
   return { saveUser, loginUser, loading, error, success, nomeCompletoLogado };
 };

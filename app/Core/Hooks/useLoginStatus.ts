@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUserStorage } from "./UserStorage";
+import { useUserStorage } from "./useUserStorage";
 
 export const LoginStatus = () => {
   const [usuario, setUsuario] = useState("");
