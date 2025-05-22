@@ -1,25 +1,12 @@
 "use client";
-import { useState } from "react";
 import { ButtonStatus } from "../Hooks/ButtonStatus";
 import Link from "next/link";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
-import {
-  Box,
-  Button,
-  FilledInput,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import SubmitButton from "./SubmitButton";
+import PasswordInput from "./PasswordInput";
 
 export default function NewUserForm() {
-  const [showPassword, setShowPassword] = useState(false);
-
   const {
     nomeCompleto,
     usuario,
@@ -34,19 +21,6 @@ export default function NewUserForm() {
     error,
     loading,
   } = ButtonStatus();
-
-  // Função para mostrar ou esconder a senha
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-  const handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
 
   return (
     <div className="container-create-form flex flex-col items-center">
@@ -78,28 +52,13 @@ export default function NewUserForm() {
           fullWidth
         />
 
-        <FormControl sx={{ m: 1, width: "35ch" }} variant="filled">
-          <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
-          <FilledInput
-            id="filled-adornment-password"
-            type={showPassword ? "text" : "password"}
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+        <PasswordInput
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          label="Senha"
+          width="35ch"
+          margin={1}
+        />
 
         <SubmitButton
           {...getButtonProps()}
